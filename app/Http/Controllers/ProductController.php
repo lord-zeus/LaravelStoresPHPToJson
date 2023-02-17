@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -28,8 +27,6 @@ class ProductController extends Controller
             $perPage,
             $pageNumber,
         );
-
-        return $product_file;
     }
 
     public function getProductsFromStore(){
@@ -66,7 +63,6 @@ class ProductController extends Controller
         $this->rule($request);
         $products = $this->getProductsFromStore();
         foreach ($products as $k =>  $product){
-            Log::debug($k);
             if($product->id === $product_id){
                 $product->name = $request->name;
                 $product->quantity = $request->quantity;

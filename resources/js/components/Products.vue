@@ -65,7 +65,7 @@
                         <td>{{ product.name}}</td>
                         <td>{{  product.quantity }}</td>
                         <td>{{ product.unit_price }}</td>
-                        <td>{{ product.created_at }}</td>
+                        <td>{{ dateLocal(product.created_at) }}</td>
                         <td>{{ product.quantity * product.unit_price }}</td>
                         <td><button @click="editProduct(product)" class="btn btn-info">Edit</button></td>
                     </tr>
@@ -110,6 +110,9 @@ export default {
     },
 
     methods: {
+        dateLocal(value){
+            return new Date(value).toDateString()
+        },
         editProduct(product){
             this.clearErrors()
             this.data = {
@@ -147,7 +150,6 @@ export default {
                 l = i;
             }
 
-            console.log(rangeWithDots)
             this.pagination = rangeWithDots;
             return rangeWithDots;
         },
@@ -178,7 +180,6 @@ export default {
                 this.clearData()
                 this.busy = false
             }).catch((error) => {
-                console.log(error.response.data.errors)
                 let error_message = error.response.data.errors;
                 for(const key in error_message){
                     this.errors[key] = error_message[key]
@@ -198,7 +199,6 @@ export default {
                 this.clearData()
                 this.busy = false
             }).catch((error) => {
-                console.log(error.response.data.errors)
                 let error_message = error.response.data.errors;
                 for(const key in error_message){
                     this.errors[key] = error_message[key]
